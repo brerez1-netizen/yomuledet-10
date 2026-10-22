@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>המירוץ למיליון - יום הולדת 10</title>
+<meta property="og:title" content="המירוץ למיליון - יום הולדת 10">
+<meta property="og:description" content="אריאל, דניאלה, עדי, רומיאו ורוני מזמינים אתכם. לחצו על המעטפה לרמז הראשון.">
+<meta property="og:image" content="https://brerez1-netizen.github.io/birthday-10-race/invite.png">
+<meta name="theme-color" content="#10284a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&family=Secular+One&display=swap" rel="stylesheet">
+<style>
+  /* עמוד אחד אנכי: סמל, צוותים, מעטפה שנפתחת לרמז עם מפה ואישור הגעה */
+  :root{
+    --navy:#10284a; --navy-deep:#08162b; --sky:#cfe0f5; --muted:#4a6585;
+    --yellow:#ffd21f; --red:#e8262c; --paper:#ffffff; --green:#2e9d4f;
+    --display:'Secular One','Heebo',Arial,sans-serif;
+    --body:'Heebo',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:dark}
+  body{
+    font-family:var(--body);color:#fff;min-height:100vh;
+    background:radial-gradient(circle at 50% 12%, #1d4a7a 0%, var(--navy) 40%, var(--navy-deep) 100%) fixed var(--navy-deep);
+    padding-left:max(16px, env(safe-area-inset-left, 0px));
+    padding-right:max(16px, env(safe-area-inset-right, 0px));
+    padding-block:24px 48px;
+  }
+  .wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .logo{width:100%;max-width:440px}
+  .edition{font-family:var(--display);font-size:clamp(26px,7vw,36px);color:var(--yellow);text-align:center;margin-top:-6px}
+  .teams-title{font-size:18px;font-weight:700;color:var(--sky)}
+  .teams{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+  .team{
+    font-family:var(--display);font-size:clamp(20px,5.6vw,26px);line-height:1;color:var(--navy);
+    padding:8px 14px 10px;border-radius:10px;
+    background:linear-gradient(135deg,var(--yellow) 0 50%,var(--red) 50% 100%);
+    box-shadow:0 4px 0 rgba(0,0,0,.35);
+  }
+  .team span{background:#fff;padding:3px 12px 6px;border-radius:6px;display:inline-block}
+
+  /* מעטפה */
+  .hint{font-family:var(--display);font-size:22px;color:var(--yellow);text-align:center;margin-top:10px}
+  .envelope{
+    position:relative;width:100%;max-width:400px;aspect-ratio:1.55;margin-top:56px;
+    border:0;background:none;cursor:pointer;perspective:900px;font:inherit;color:inherit;
+  }
+  .envelope:focus-visible{outline:4px solid var(--yellow);outline-offset:8px;border-radius:12px}
+  .env-back,.env-front,.env-flap{position:absolute;inset:0;border-radius:12px}
+  .env-back{background:#c81e23;z-index:0}
+  .env-card{
+    position:absolute;left:7%;right:7%;top:8%;height:84%;
+    background:var(--paper);color:var(--navy);border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    transition:transform .7s cubic-bezier(.2,.8,.2,1) .25s;
+    font-family:var(--display);z-index:1;
+  }
+  .env-card .t1{font-size:26px}
+  .env-card .t2{font-size:16px;font-family:var(--body);font-weight:700;color:var(--muted)}
+  .env-front{
+    background:
+      linear-gradient(to top right, var(--yellow) 0 50%, transparent 50%) left bottom/50% 100% no-repeat,
+      linear-gradient(to top left, var(--red) 0 50%, transparent 50%) right bottom/50% 100% no-repeat;
+    clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+    background-color:#f2b705;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0,.15);
+  }
+  .env-front::after{
+    content:"רמז ראשון";position:absolute;left:50%;bottom:14%;transform:translateX(-50%);
+    font-family:var(--display);font-size:clamp(22px,6vw,30px);color:#fff;
+    background:var(--navy);padding:2px 18px 6px;border-radius:8px;white-space:nowrap;
+  }
+  .env-flap{
+    background:linear-gradient(180deg,#ffdd4a,var(--yellow));
+    clip-path:polygon(0 0,100% 0,50% 58%);
+    transform-origin:top center;transition:transform .5s ease,z-index 0s linear .25s;z-index:3;
+    filter:drop-shadow(0 3px 0 rgba(0,0,0,.2));
+  }
+  .seal{
+    position:absolute;left:50%;top:44%;width:58px;height:58px;margin-left:-29px;margin-top:-29px;
+    border-radius:50%;background:var(--red);border:4px solid #fff;z-index:4;
+    display:grid;place-items:center;font-family:var(--display);font-size:24px;color:#fff;
+    transition:opacity .25s;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  .envelope.open .env-flap{transform:rotateX(180deg);z-index:0}
+  .envelope.open .seal{opacity:0;animation:none}
+  .envelope.open .env-card{transform:translateY(-62%)}
+  .env-front{z-index:2}
+
+  /* פאנל הרמז */
+  .clue{
+    width:100%;background:var(--paper);color:var(--navy);border-radius:16px;overflow:hidden;
+    box-shadow:0 10px 0 rgba(0,0,0,.35);
+  }
+  .clue[hidden],.rsvp[hidden]{display:none}
+  .clue.reveal{animation:rise .6s cubic-bezier(.2,.8,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .clue-head{
+    background:linear-gradient(135deg,var(--yellow) 0 50%,var(--red) 50% 100%);
+    padding:12px 18px;font-family:var(--display);font-size:24px;
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+  }
+  .clue-head b{background:var(--navy);color:var(--yellow);padding:0 14px 4px;border-radius:6px;font-weight:400}
+  .clue-head i{font-style:normal;background:#fff;color:var(--red);padding:0 12px 4px;border-radius:6px;font-size:18px}
+  .clue-body{padding:20px 18px 22px;display:flex;flex-direction:column;gap:16px}
+  .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;font-size:20px}
+  .facts dt{font-size:15px;font-weight:700;color:var(--muted)}
+  .facts dd{font-weight:900}
+  .map{width:100%;aspect-ratio:16/10;border:0;border-radius:10px;background:#dde7f2}
+  .nav{display:flex;gap:10px}
+  .btn{
+    flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--display);font-size:19px;text-decoration:none;
+    padding:12px 10px 14px;border-radius:10px;border:3px solid var(--navy);color:var(--navy);background:#fff;cursor:pointer;
+  }
+  .btn:focus-visible,.go:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+  .rsvp{border-top:3px dashed rgba(16,40,74,.25);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+  .rsvp h2{font-family:var(--display);font-size:26px;font-weight:400}
+  .rsvp label{font-weight:700;font-size:16px;color:var(--muted)}
+  .rsvp input{
+    font:inherit;font-size:20px;font-weight:700;color:var(--navy);
+    padding:12px 14px;border-radius:10px;border:3px solid var(--navy);background:#fff;width:100%;
+  }
+  .go{
+    font-family:var(--display);font-size:24px;color:var(--navy);border:0;cursor:pointer;
+    padding:14px 12px 16px;border-radius:12px;
+    background:linear-gradient(135deg,var(--yellow) 0 50%,var(--red) 50% 100%);
+    box-shadow:0 5px 0 var(--navy);
+  }
+  .go span{background:#fff;padding:2px 16px 6px;border-radius:8px}
+  .go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--navy)}
+  .go:disabled{opacity:.6;cursor:wait}
+  .msg{font-weight:700;font-size:17px;min-height:1.4em}
+  .msg.err{color:var(--red)}
+  .done{
+    display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+    background:#eef6ee;border:3px solid var(--green);border-radius:12px;padding:16px;
+  }
+  .done[hidden]{display:none}
+  .done strong{font-family:var(--display);font-size:24px;font-weight:400;color:var(--green)}
+  .done p{font-size:17px;font-weight:700}
+  .link{background:none;border:0;font:inherit;font-weight:700;color:var(--navy);text-decoration:underline;cursor:pointer}
+  .foot{color:var(--sky);font-weight:700;text-align:center;font-size:17px;line-height:1.5}
+  .foot b{color:var(--yellow)}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <svg class="logo" viewBox="0 0 620 430" role="img" aria-label="המירוץ למיליון, יום הולדת 10">
+    <defs>
+      <clipPath id="g"><circle cx="310" cy="170" r="150"/></clipPath>
+      <clipPath id="f"><path d="M330 40 Q400 20 470 45 T600 40 L600 170 Q530 195 470 170 T330 175 Z"/></clipPath>
+    </defs>
+    <circle cx="310" cy="170" r="150" fill="#1b5fa8"/>
+    <g clip-path="url(#g)" fill="#3fa34d">
+      <path d="M190 90 q40 -30 90 -10 q20 30 -10 55 q-35 10 -50 45 q-30 5 -40 -30 q-10 -35 10 -60z"/>
+      <path d="M330 70 q50 -10 80 20 q15 30 -15 45 q-30 0 -40 30 q-15 50 -45 40 q-20 -40 0 -80 q-5 -35 20 -55z"/>
+      <path d="M250 230 q40 -10 60 20 q10 40 -20 70 q-30 0 -40 -40 q-15 -30 0 -50z"/>
+      <path d="M410 200 q40 0 50 30 q-10 40 -50 30 q-20 -30 0 -60z"/>
+    </g>
+    <g clip-path="url(#g)" stroke="#fff" stroke-opacity=".35" stroke-width="2.5" fill="none">
+      <ellipse cx="310" cy="170" rx="60" ry="150"/><ellipse cx="310" cy="170" rx="115" ry="150"/>
+      <line x1="310" y1="20" x2="310" y2="320"/>
+      <path d="M160 120 Q310 100 460 120"/><path d="M160 220 Q310 240 460 220"/><line x1="160" y1="170" x2="460" y2="170"/>
+    </g>
+    <circle cx="310" cy="170" r="150" fill="none" stroke="#fff" stroke-width="8"/>
+    <rect x="322" y="28" width="10" height="250" rx="5" fill="#f2f2f2" stroke="#10284a" stroke-width="2"/>
+    <g clip-path="url(#f)">
+      <rect x="330" y="0" width="280" height="220" fill="#e8262c"/>
+      <path d="M330 0 L610 0 L330 220 Z" fill="#ffd21f"/>
+    </g>
+    <path d="M330 40 Q400 20 470 45 T600 40 L600 170 Q530 195 470 170 T330 175 Z" fill="none" stroke="#10284a" stroke-width="4"/>
+    <text x="470" y="135" text-anchor="middle" font-family="Secular One" font-size="96" fill="#fff" stroke="#10284a" stroke-width="5" paint-order="stroke">10</text>
+    <g font-family="Secular One" text-anchor="middle">
+      <rect x="40" y="300" width="540" height="112" rx="16" fill="#e8262c" stroke="#fff" stroke-width="6" transform="rotate(-3 310 356)"/>
+      <text x="310" y="385" font-size="84" fill="#fff" stroke="#10284a" stroke-width="7" paint-order="stroke" transform="rotate(-3 310 356)">המירוץ למיליון</text>
+    </g>
+  </svg>
+
+  <div class="edition">מהדורת יום הולדת 10</div>
+  <div class="teams-title">חמישה צוותים יוצאים למסלול</div>
+  <div class="teams">
+    <div class="team"><span>אריאל</span></div>
+    <div class="team"><span>דניאלה</span></div>
+    <div class="team"><span>עדי</span></div>
+    <div class="team"><span>רומיאו</span></div>
+    <div class="team"><span>רוני</span></div>
+  </div>
+
+  <p class="hint" id="hint">קיבלתם רמז! לחצו על המעטפה</p>
+  <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-controls="clue">
+    <span class="env-back"></span>
+    <span class="env-card"><span class="t1">יום שלישי, 10.11</span><span class="t2">15:30 · גינת גינדי</span></span>
+    <span class="env-front"></span>
+    <span class="env-flap"></span>
+    <span class="seal">10</span>
+  </button>
+
+  <section class="clue" id="clue" hidden>
+    <div class="clue-head"><b>רמז ראשון</b><i>נקודת הזינוק</i></div>
+    <div class="clue-body">
+      <dl class="facts">
+        <dt>מתי</dt><dd>יום שלישי, 10.11</dd>
+        <dt>שעה</dt><dd>15:30</dd>
+        <dt>איפה</dt><dd>גינת גינדי</dd>
+      </dl>
+      <iframe class="map" id="map" title="מפה: גינת גינדי" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="nav">
+        <a class="btn" id="waze" target="_blank" rel="noopener">ניווט ב-Waze</a>
+        <a class="btn" id="gmaps" target="_blank" rel="noopener">Google Maps</a>
+      </div>
+
+      <form class="rsvp" id="rsvp" novalidate>
+        <h2>אישור הגעה</h2>
+        <label for="kid">שם הילד/ה שמגיע/ה</label>
+        <input id="kid" name="kid" type="text" autocomplete="off" maxlength="60" placeholder="שם פרטי ומשפחה" required>
+        <button class="go" id="go" type="submit"><span>אנחנו במירוץ!</span></button>
+        <p class="msg" id="msg" role="status"></p>
+      </form>
+      <div class="done" id="done" hidden>
+        <strong>נרשם!</strong>
+        <p id="doneText"></p>
+        <button class="link" id="again" type="button">לאשר ילד/ה נוסף/ת</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">משימות, רמזים ועצירות בדרך.<br><b>הצוות האחרון שמגיע... עדיין מקבל עוגה.</b></p>
+</main>
+
+<script>
+  // יעד הניווט והמפה. לעדכן לכתובת מדויקת אם יש
+  const PLACE = 'גינדי TLV, תל אביב';
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScTgJafYKC4dTlOO0sUbB_CDOEAdNlylIfUZzgWzhkT_za1Aw/formResponse';
+  const ENTRY = 'entry.1635496700';
+
+  const q = encodeURIComponent(PLACE);
+  document.getElementById('waze').href = 'https://waze.com/ul?q=' + q + '&navigate=yes';
+  document.getElementById('gmaps').href = 'https://www.google.com/maps/search/?api=1&query=' + q;
+
+  const env = document.getElementById('envelope');
+  const clue = document.getElementById('clue');
+  env.addEventListener('click', () => {
+    if (env.classList.contains('open')) {
+      clue.scrollIntoView({behavior: 'smooth', block: 'start'});
+      return;
+    }
+    env.classList.add('open');
+    env.setAttribute('aria-expanded', 'true');
+    document.getElementById('hint').textContent = 'הרמז נפתח';
+    document.getElementById('map').src = 'https://maps.google.com/maps?q=' + q + '&z=16&output=embed';
+    setTimeout(() => {
+      clue.hidden = false;
+      clue.classList.add('reveal');
+      clue.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }, 900);
+  });
+
+  const form = document.getElementById('rsvp');
+  const input = document.getElementById('kid');
+  const go = document.getElementById('go');
+  const msg = document.getElementById('msg');
+  const done = document.getElementById('done');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = input.value.trim();
+    msg.className = 'msg';
+    if (name.length < 2) {
+      msg.textContent = 'צריך לכתוב את שם הילד/ה';
+      msg.classList.add('err');
+      input.focus();
+      return;
+    }
+    go.disabled = true;
+    msg.textContent = 'שולח...';
+    try {
+      await fetch(FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({[ENTRY]: name})
+      });
+      form.hidden = true;
+      document.getElementById('doneText').textContent = name + ' ברשימת הצוותים. נתראה בקו הזינוק!';
+      done.hidden = false;
+      msg.textContent = '';
+    } catch (err) {
+      msg.textContent = 'השליחה לא עברה. בדקו חיבור לאינטרנט ונסו שוב.';
+      msg.classList.add('err');
+    } finally {
+      go.disabled = false;
+    }
+  });
+
+  document.getElementById('again').addEventListener('click', () => {
+    input.value = '';
+    done.hidden = true;
+    form.hidden = false;
+    input.focus();
+  });
+</script>
+</body>
+</html>
